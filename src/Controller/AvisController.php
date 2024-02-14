@@ -21,7 +21,7 @@ class AvisController extends AbstractController
         $aviss = $repo->findAll();
         return $this->render('avis/index.html.twig', [
             'controller_name' => 'AvisController',
-            'avis' => $aviss
+            'azis' => $aviss
         ]);
     }
     /*  La méthode create de l'entité Avis est dans ce fichier src/Controller/PageAccueilController.php 
