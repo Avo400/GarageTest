@@ -166,6 +166,16 @@ class VehiculeController extends AbstractController
         ]);
                     
     }
+
+    // Seul l'employe peut ajouter, modifier ou supprimer une réparation.
+    #[Route('/vehicule/employe', name: 'vehicule_employe')]
+    public function adminReparation(VehiculeRepository $repo): Response {
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYEE');
+        $vehicules = $repo->findAll();
+        return $this->render('vehicule/indexEmploye.html.twig', [
+            'vehicules'=> $vehicules
+        ]);
+    }
 }
 
 

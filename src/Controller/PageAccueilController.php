@@ -48,27 +48,7 @@ class PageAccueilController extends AbstractController
         ]);
     }
 
-     /* #[Route('/', name: 'avis_index/create')]
-    public function addAvis(Request $request, ManagerRegistry $doctrine)
-    {
-        $manager = $doctrine->getManager();
-        $avis = new Avis();
-        $form = $this->createForm(AvisType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $avis = $form->getData();
-            $manager->persist($avis);
-            $manager->flush();
-            return $this->render('avis/show.html.twig', 
-            ['avis' => $avis]);
-        }
-        return $this->render('avis/create.html.twig' , [
-            'formAvis' => $form->createView(),
-            'isEditMode' => false
-
-        ]);
-       
-    }  */
+     
 
 
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AvisController!{% endblock %}
+{% block title %}Liste des avis{% endblock %}
 
 {% block body %}
     <style>
@@ -15,6 +15,7 @@
         <td>Note</td>
         <td>Titre </td>
         <td>Contenu message </td>
+        <td>Approuvé ?</td>
         <td> Modifier l'avis </td>
         <td> Supprimer l'avis </td>
         </tr>
@@ -24,6 +25,16 @@
                 <td>{{ avis.note }} sur 5 </td>
                 <td> {{ avis.titre }} </td>
                 <td> {{ avis.contenuMessageAvis }}</td>
+                <td>
+                    {% if avis.approved == '0' %}
+                        <p> Non </p>
+                    {% else %}
+                        <p> Oui </p>    
+                    {% endif %}
+                </td>
+               
+                
+              
                  <td> <button class="btn btn-primary" > <a href="/avis/edit/{{ avis.id }}" style="text-decoration: none;"> Modifier </a> </button> </td>
                  <td> 
                     <button class="btn btn-danger">

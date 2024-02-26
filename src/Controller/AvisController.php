@@ -24,10 +24,31 @@ class AvisController extends AbstractController
             'avis' => $aviss
         ]);
     }
-    /*  La méthode create de l'entité Avis est dans ce fichier src/Controller/PageAccueilController.php 
-        Cette méthode devrait être ici-même en temps normal mais l'énoncé du devoir m'a contraint de la mettre dans PageAccueilController.php.
-        De plus, on y retrouve seulement le contenu de la méthode dans la fonction "index" de ce fichier et non pas sa signature.
-    */
+    #[Route('/avis/new', name: 'avis_new')]
+    public function addAvis(Request $request, ManagerRegistry $doctrine)
+    {
+        $manager = $doctrine->getManager();
+        $avis = new Avis();
+        $form = $this->createForm(AvisType::class);
+        $form->remove('user');
+        $form->remove('approved');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $avis = $form->getData();
+            $avis->setUser($this->getUser());
+            $avis->setApproved(false);
+            $manager->persist($avis);
+            $manager->flush();
+            return $this->render('avis/show.html.twig', 
+            ['avis' => $avis]);
+        }
+        return $this->render('avis/create.html.twig' , [
+            'formAvis' => $form->createView(),
+            'isEditMode' => false
+
+        ]);
+       
+    } 
 
 
     #[Route('/avis/edit/{id}', name: 'avis_edit')]
@@ -73,13 +94,15 @@ class AvisController extends AbstractController
                     
     }
 
-    #[Route('/avis/admin', name: 'admin_avis')]
+    #[Route('/avis/employe', name: 'avis_employe')]
     public function adminAvis(AvisRepository $repo): Response
     {
         
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYEE');
+        
         $aviss = $repo->findAll();
         
-        return $this->render('avis/indexAdmin.html.twig', [
+        return $this->render('avis/indexEmploye.html.twig', [
             'controller_name' => 'AvisController',
             'aviss' => $aviss
         ]);

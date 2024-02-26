@@ -7,6 +7,14 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+
+        {% if (is_granted('ROLE_USER')) or (is_granted('ROLE_EMPLOYEE')) or (is_granted('ROLE_ADMIN')) %}
+          
+        {% else %}
+             <h1> Voir les véhicules d'occasion en vente</h1>
+            <p> <a href="{{ path('app_login') }}"> Connectez-vous </a> afin d'avoir accès à la page de vente des véhicules. </p> 
+        {% endif %}
+
         <h1> Réparations proposées </h1>
         <table class="table table-hover">
         <tr class="table-dark">
